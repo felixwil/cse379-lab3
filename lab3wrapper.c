@@ -13,8 +13,10 @@ void serial_init(void)
 	(*((volatile uint32_t *)(0x400FE618))) = 1;
 	/* Enable clock to PortA  */
 	(*((volatile uint32_t *)(0x400FE608))) = 1;
+
 	/* Disable UART0 Control  */
 	(*((volatile uint32_t *)(0x4000C030))) = 0;
+	
 	/* Set UART0_IBRD_R for 115,200 baud */
 	(*((volatile uint32_t *)(0x4000C024))) = 8;
 	/* Set UART0_FBRD_R for 115,200 baud */
