@@ -370,26 +370,24 @@ nextplace:
 string2int:
 	PUSH {lr}   ; Store register lr on stack
 
-	;SUB r1, r1, #6
-
-	MOV r2, #0
+	MOV r2, #0 ; initialise r2
 
 nextload:
-	LDRB r1, [r0]
-	CMP r1, #0x0
+	LDRB r1, [r0] ; load a character from the string at r0
+	CMP r1, #0x0  ; if it's the null character, we're done.
 	BEQ exitstring1intloop
 
-	MOV r11, #10
+	MOV r11, #10      ; placeholder for calculations
 	MUL r2, r2, r11   ; r2 *= 10
 	SUB r3, r1, #0x30 ; r2 = r1-'0'
-	ADD r2, r2, r3
+	ADD r2, r2, r3    ; accumulator
 
-	ADD r0, r0, #1
+	ADD r0, r0, #1    ; iterate
 
-	B nextload
+	B nextload        ; go back up
 exitstring1intloop:
 
-	MOV r0, r2
+	MOV r0, r2 ; put r2 into return register
 
 	POP {lr}
 	mov pc, lr
